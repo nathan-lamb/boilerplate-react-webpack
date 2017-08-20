@@ -14,3 +14,35 @@ export const getSentiment = (text, cb) => {
       }
     })
 }
+
+export const getSentiment2 = (text, cb) => {
+  request
+    .post('https://community-sentiment.p.mashape.com/text/')
+    .send({'txt': text})
+    .set('Content-Type', 'application/x-www-form-urlencoded')
+    .set('X-Mashape-Key', '2IpJM2mA70mshnNZF7IxqvgBnHyvp1H0D3Fjsn0iy46MsIYgDb')
+    .set('Accept", "application/json')
+    .send({text})
+    .end((err, res) => {
+      if (err) {
+        console.error(err.message)
+      } else {
+        cb(res.body.result.confidence, res.body.result.sentiment)
+      }
+    })
+}
+
+export const getSentiment3 = (text, cb) => {
+  request
+    .post('https://textanalysis-text-sentiment-v1.p.mashape.com/twitter-sentiment')
+    .send({text: text})
+    .set('X-Mashape-Key', '2IpJM2mA70mshnNZF7IxqvgBnHyvp1H0D3Fjsn0iy46MsIYgDb')
+    .set('Content-Type', 'application/x-www-form-urlencoded')
+    .end((err, res) => {
+      if (err) {
+        console.error(err.message)
+      } else {
+        cb(res.body.sentiment, res.body.confidence)
+      }
+    })
+}
